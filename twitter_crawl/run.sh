@@ -4,4 +4,4 @@ set -a
 source secrets.env
 set +a
 
-python3 02_crawl_tweet.py
+python3 $1

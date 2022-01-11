@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Tested with Telethon version 1.14.0
 
 import configparser
 from telethon import TelegramClient
@@ -158,9 +157,8 @@ async def main():
         try:
             chat = await client.get_entity(channel_username)
         except FloodWaitError as f:
-            debughere()
-            print(f)
-            seconds = int(f.split(" ")[3])
+            error_message = str(f)
+            seconds = int(error_message.split(" ")[3])
             print(f"We triggered FloodWait Error. Wait for {seconds} seconds.")
             time.sleep(seconds)
 
@@ -179,9 +177,8 @@ async def main():
                 channel = await client(ResolveUsernameRequest(chat_dict["username"]))
                 user_list = await client.get_participants(entity=channel)
             except FloodWaitError as f:
-                debughere()
-                print(f)
-                seconds = int(f.split(" ")[3])
+                error_message = str(f)
+                seconds = int(error_message.split(" ")[3])
                 print(f"We triggered FloodWait Error. Wait for {seconds} seconds.")
                 time.sleep(seconds)
 
@@ -201,9 +198,8 @@ async def main():
                     message_dict = await get_message_info(chat_dict["id"], chat_dict["username"], message)
                     message_writer.writerow(message_dict.values())
             except FloodWaitError as f:
-                debughere()
-                print(f)
-                seconds = int(f.split(" ")[3])
+                error_message = str(f)
+                seconds = int(error_message.split(" ")[3])
                 print(f"We triggered FloodWait Error. Wait for {seconds} seconds.")
                 time.sleep(seconds)
         except:
